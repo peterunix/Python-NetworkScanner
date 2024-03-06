@@ -147,5 +147,6 @@ is_network(subnet)
 main(subnet)
 
 print("IP,MacAddress,Vendor,OpenPorts")
+onlineHosts = dict(sorted(onlineHosts.items()))
 for key in onlineHosts.keys():
     print(key, onlineHosts[key]['MacAddress'], onlineHosts[key]['Vendor'], onlineHosts[key]['Ports'],sep=",")
