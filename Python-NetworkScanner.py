@@ -4,36 +4,60 @@ import threading
 import socket
 import getmac
 import sys, getopt
+import re
 from mac_vendor_lookup import MacLookup
 
+# Default max concurrent threads
+maxThreads = 1000
+# Dictionary to store IP, Mac, and Port information
+onlineHosts = {}
+# List to store the port information while threading
+openPorts = []
+
 def usage():
-    print("Scans the local network and prints out IP,MAC,VENDOR,PORTS to the screen")
+    print("Scans the local network and prints out IP,MAC,VENDOR,PORTS to the screen\n")
+    print("-r Your network with network prefix (ex 192.168.1.0/24)")
+    print(f"-t Optionally specifiy the amount of concurrent threads. [Default {maxThreads}]")
     print(f"{sys.argv[0]} -r 192.168.0.1/24")
 
+# Regular expression to match IPv4 address in CIDR notation
+def is_network(input_string):
+    ip_cidr_pattern = r'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/\d{1,2}$'
+    # Check if the input string matches the IPv4 or IPv6 CIDR pattern
+    if re.match(ip_cidr_pattern, input_string):
+        return True
+    else:
+        print("IPv4 network doesn't match CIDR notation. (ex: 192.168.0.1/24)")
+        sys.exit(1)
+
+# Supplying command line arguments
 try:
     commandLineArgs = sys.argv[1:]
-    unixOptions = "r:h"
+    unixOptions = "r:ht:"
     opts, args = getopt.getopt(commandLineArgs, unixOptions)
 except getopt.GetoptError as e:
     print(f"ERROR: {e}")
     usage()
     sys.exit(2)
 
-# Create new variables to store the users args
 for opt, arg in opts:
     if opt == "-h":
         usage()
         sys.exit(0)
     elif opt == "-r":
         subnet = str(arg)
+    elif opt == "-t":
+        maxThreads = int(arg)
 
-# Exit if the user didn't input all arguments
+# Exit if the user didn't input mandatory arguments
 mandatory_options = ["-r"]
 for opt in mandatory_options:
     if not any(opt in o for o in opts):
         print(f"Error: {opt} option missing. Review usage with -h")
         usage()
         sys.exit(2)
+
+
 
 # Checks if a device is online and appends it to the onlineHosts list
 def ping_device(ip: str):
@@ -118,10 +142,8 @@ def main(subnet):
         threads.clear()
         onlineHosts[key].update({'Ports': ' '.join(openPorts)})
 
-onlineHosts = {}
-openPorts = []
-maxThreads = 1000
 
+is_network(subnet)
 main(subnet)
 
 print("IP,MacAddress,Vendor,OpenPorts")

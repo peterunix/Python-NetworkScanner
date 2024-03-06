@@ -1,18 +1,33 @@
-* Python-PortScanner.py
+* Python-NetworkScanner.py
 
 
 Store all the data in a dictionary
 
-* DONE Figure out how to store IP address data in a list
-* DONE Run function multithreaded
-* DONE Get the ip address from the ping object
+Scans the local network and prints the IP, Mac Address, Vendor, and Open Ports
+to stdout. The data is comma delimited, just like a CSV.
 
-* DONE Obtain Mac 
-* DONE Obtain Vendor
-* TODO Add IP, Vendor, Mac to dictionary
-* TODO Create CLI Interface
-* TODO Obtain NetBIOS
-* TODO Port Scan
-This can be done inside the thread but might reduce speed of the scan
+I tested this on Windows 11 using Python 3.11. I didn't test this on Linux.
 
-Output of this should be easily parsed
+* Installation
+On the releases page there's a prebuilt windows executable. I advise you create
+your own binary with PyInstaller unless your lazy and trust me
+
+#+begin_src
+pip install -r requirements.txt
+python3 Python-NetworkScasnner.py
+#+end_src
+
+* Usage
+
+*Administrative rights is /probably/ required for the pings to work*
+
+#+begin_src
+# Optionally use -t to specify how many concurrent threads should run.
+# Default value is 1000
+Python-NetworkScanner.py -r 192.168.0.5
+#+end_src
+
+[[./screenshot.png]]
+
+* Note
+/Spaghetti code/ - Peter
