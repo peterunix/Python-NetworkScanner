@@ -20,7 +20,7 @@ python3 Python-NetworkScanner.py
 #+begin_src
 # Optionally use -t to specify how many concurrent threads should run.
 # Default value is 1000
-Python-NetworkScanner.py -r 192.168.0.5
+Python-NetworkScanner.py -r 192.168.0.0/24
 #+end_src
 
 [[./screenshot.png]]
