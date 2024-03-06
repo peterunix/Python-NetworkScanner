@@ -1,20 +1,16 @@
 * Python-NetworkScanner.py
+Another CLI tool for local network port scanning! This will find all online hosts on the
+local network and then print the IP, mac address, vendor, and open ports to
+STDOUT. The data is comma delimited, just like a CSV.
 
-
-Store all the data in a dictionary
-
-Scans the local network and prints the IP, Mac Address, Vendor, and Open Ports
-to stdout. The data is comma delimited, just like a CSV.
-
-I tested this on Windows 11 using Python 3.11. I didn't test this on Linux.
 
 * Installation
-On the releases page there's a prebuilt windows executable. I advise you create
+A prebuilt windows binary can be found on the releases page. I advise you create
 your own binary with PyInstaller unless your lazy and trust me
 
 #+begin_src
 pip install -r requirements.txt
-python3 Python-NetworkScasnner.py
+python3 Python-NetworkScanner.py
 #+end_src
 
 * Usage
@@ -30,4 +26,6 @@ Python-NetworkScanner.py -r 192.168.0.5
 [[./screenshot.png]]
 
 * Note
+If ICMP is blocked by the devices firewall it will not show up in the output.
+
 /Spaghetti code/ - Peter
