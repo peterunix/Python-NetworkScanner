@@ -1,0 +1,18 @@
+* Python-PortScanner.py
+
+
+Store all the data in a dictionary
+
+* DONE Figure out how to store IP address data in a list
+* DONE Run function multithreaded
+* DONE Get the ip address from the ping object
+
+* DONE Obtain Mac 
+* DONE Obtain Vendor
+* TODO Add IP, Vendor, Mac to dictionary
+* TODO Create CLI Interface
+* TODO Obtain NetBIOS
+* TODO Port Scan
+This can be done inside the thread but might reduce speed of the scan
+
+Output of this should be easily parsed
